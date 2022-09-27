@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('../partials/header'); %>
+</header>
+
+<main>
+
+	<div class="card mt-4">
+	  <div class="card-header">
+	     <h5 class="card-title">New Genre</h5>
+	  </div>
+	  <div class="card-body">
+
+	   	<form method="POST" action="/genres/create">
+				<div class="form-group">
+					 <label for="name">Name</label>
+					 <input type="text" name="name" class="form-control">
+				</div>
+				<button type="submit" class="btn btn-primary">Save
+				</button>
+			</form>
+
+			<% if (typeof error !== "undefined") { %>
+				<div class="alert alert-primary mt-2" role="alert">   <p><%= error %></p>
+				</div>
+			<% } %>
+
+	  </div>
+	</div>
+	
+
+</main>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>
