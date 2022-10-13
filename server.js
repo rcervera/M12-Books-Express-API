@@ -5,6 +5,7 @@ var dotenv = require('dotenv');
 var indexRouter = require('./routes/indexRouter');
 var genresRouter = require('./routes/genresRouter');
 var publisherRouter = require('./routes/publisherRouter');
+var technicalBookRouter = require('./routes/technicalBookRouter');
 
 
 var app = express();
@@ -45,6 +46,6 @@ const server = app.listen(port, () => {
 app.use('/home', indexRouter);
 app.use('/genres', genresRouter);
 app.use('/publisher', publisherRouter);
-
+app.use('/technicalbook', technicalBookRouter);
 
 module.exports = app;
