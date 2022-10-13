@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('../partials/header'); %>
+</header>
+
+<main>
+	<div class="card mt-2" style="width: 25rem;">
+    <div class="card-body">
+	    <h5 class="card-title">Edit Publisher</h5>
+		
+	
+	<form method="POST" action="/publisher/update/<%= publisher._id %>">
+		<div class="form-group">
+			 <label for="name">Nom</label>
+			<input type="text" name="name" class="form-control" value="<%= publisher.name %>">
+		</div>
+		<button type="submit" class="btn btn-primary">Save
+		</button>
+		<a class="btn btn-danger" href="/publisher/delete/<%= publisher._id %>" role="button">Delete</a>
+
+	</form>
+
+	<% if (typeof error !== "undefined") { %>
+		<div class="alert alert-primary mt-2" role="alert">
+		    <p>Form could not be submitted due to the following error:</p>
+		    <p><%= error %></p>
+		</div>
+	<% } %>
+
+	<% if (typeof message !== "undefined") { %>
+			<div class="alert alert-primary mt-2" role="alert">
+			    <p><%= message %></p>
+			</div>
+		<% } %>
+		
+	</div>
+		
+	</div>
+
+</main>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

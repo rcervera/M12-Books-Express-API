@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('../partials/header'); %>
+</header>
+
+<main>
+	<div class="card mt-2" style="width: 25rem;">
+    <div class="card-body">
+	    <h5 class="card-title">Publishers</h5>
+		
+		<table class="table table-striped">
+	  		<thead>
+			    <tr>		      
+			      <th scope="col">Name</th>
+			      <th scope="col">
+			      	<a href="/publisher/new" class="btn btn-primary">New</a>
+			      </th>
+			    </tr>
+	  	</thead>
+		  	<tbody>
+		  		<% list.forEach(function(publisher) { %>
+				    <tr>		      
+				      <td><%= publisher.name %></td>
+				      <td>
+				      	
+				      	<a class="btn btn-secondary" href="/publisher/update/<%=publisher._id%>" class="card-link">Edit</a>
+
+				      </td>		      
+				    </tr>
+		   		<% }); %>	     
+		    </tbody>
+	    </table>
+	     
+    
+	</div>
+		
+	</div>
+     
+  
+
+</main>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>
