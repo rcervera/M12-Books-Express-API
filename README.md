@@ -4,4 +4,7 @@
 
 - [Segona versió: Gestió de Publishers](https://github.com/rcervera/M12-BookCatalog/tree/5735c05dc25907314d30b39d2014eb163f4cb20b)
 
-- [Tercera versió: Gestió de TechnicalBooks: Alta](https://github.com/rcervera/M12-BookCatalog)
+- [Tercera versió: Gestió de TechnicalBooks: Alta](https://github.com/rcervera/M12-BookCatalog/tree/c7e4ba2bf9c5bb924fe3a67b50beb6eda1ba3862)
+
+
+- [Quarta versió: Gestió de TechnicalBooks: CRUD amb gestió errors, Sanitització, validació i reploblament forms](https://github.com/rcervera/M12-BookCatalog)

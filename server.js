@@ -28,15 +28,28 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname + '/public')));
 
 
+function middleware1(req, res, next) {
+     console.log('middelware 1')
+     next(); 
+}
 
-app.get('/', function(req, res) {  
-  res.render('home');
+function middleware2(req, res, next) {
+     console.log('middelware 2')
+     next(); 
+}
+
+// app.use(middleware1);
+// app.use(middleware2);
+/*
+app.get('/prova', [middleware1,middleware2],function(req, res) {  
+  res.send('prova')
 });
-
+*/
 
 
 const server = app.listen(port, () => {
@@ -47,5 +60,25 @@ app.use('/home', indexRouter);
 app.use('/genres', genresRouter);
 app.use('/publisher', publisherRouter);
 app.use('/technicalbook', technicalBookRouter);
+
+/*
+const provaError = (err, req, res, next) => {
+ 
+     console.log('Hi ha hagut un error!') 
+     next(err);
+}
+*/
+
+
+
+function errorResponder(err, req, res, next) {
+ 
+     res.render('errors/error',{error:err}) 
+}
+
+// app.use(provaError)
+app.use(errorResponder)
+
+
 
 module.exports = app;

@@ -9,125 +9,101 @@
   <%- include('../partials/header'); %>
 </header>
 <main>
-	<div class="card mt-2" style="width: 60%;">
-    <div class="card-body">
-	    <h5 class="card-title"><strong>New Technical Book</strong></h5>
+	<div class="row mt-5">
+    <div class="col">
+	    	<h1 class="display-5">
+	    		<strong>New Technical Book</strong>
+	    	</h1>
 		
-	
-	<form method="POST" action="/technicalbook/create">
-		<div class="form-group">
-			 <label for="title">Title</label>
-			 <input type="text" name="title" class="form-control">
+				<div>
+						<p>Exemples ISBN: 0205080057 , 9783161484100</p>
+				</div>
+				<% if (typeof errors !== "undefined") { %>			
+					<div class="alert alert-danger mt-2" role="alert">		    <% errors.forEach(function(error) { %> 				   			<p><%= error.msg %></p>
+					    		<% }) %>
+					</div>
+				<% } %>
 		</div>
+		<div class="col">
+			<form method="POST" action="/technicalbook/create">
+				<div class="form-group">
+					 <label for="title">Title</label>
+					 <input type="text" name="title" class="form-control" value="<%= techBook.title %>">
+				</div>
 
-		<div class="form-group">
-			 <label for="publisger">Publisher</label>
-			 <select type="text" name="publisher" class="form-control">
-			 		<% publisherList.forEach(function(publisher) { %>
-				    <option value="<%= publisher.id %>">		      
-				      <%= publisher.name %>				  	      
-				    </option>
-		   		<% }); %>	
-			 </select>			
+				<div class="form-group">
+					 <label for="publisher">Publisher</label>
+					 <select type="text" name="publisher" class="form-control">
+					 	  
+					 		<% publisherList.forEach(function(publisher) { %>
+
+						 		<% if(publisher.id === techBook.publisher) { %>
+							    <option selected value="<%= publisher.id %>">		   
+							  <% } else { %>
+							    <option value="<%= publisher.id %>">	
+							  <% } %>   
+							      <%= publisher.name %>				  	      
+							    </option>
+					   		
+				   		<% }); %>	
+					 </select>			
+				</div>
+
+				
+				<div class="form-group">
+					 <label for="authors"><strong>Authors</strong></label>
+					 <% techBook.author.forEach(function(author,index) { %>
+							<div class="row mt-2">
+					 		
+						 		<div class="col-md-1">
+						 				<label for="authors"><%= index+1 %></label>
+						 		</div>
+						    
+						    <div class="col">
+						      <input type="text" class="form-control" placeholder="First name" name="author[<%= index%>][firstname]" value="<%= author.firstname %>">
+						    </div>
+						    
+						    <div class="col">
+						      <input type="text" class="form-control" placeholder="Last name" name="author[<%= index%>][lastname]" value="<%= author.lastname %>">
+						    </div>
+		  			</div>
+
+					 <% }); %>			  			
+				</div>
+
+				<div class="form-group">
+					 <label for="summary">Summary</label>
+					 <textarea  name="summary" class="form-control"><%= techBook.summary %></textarea>
+				</div>
+
+				<div class="form-group">
+					 <label for="isbn">Isbn</label>
+					 <input type="text" name="isbn" class="form-control" value="<%= techBook.isbn %>">
+				</div>
+
+				<div class="form-group">
+					 <label for="author"><strong>Genres</strong></label>		 
+					 	
+					 		<% genresList.forEach(function(genreElement) { %>
+						     
+						    	<div class="form-check">
+						    		<% if ( techBook.genre.indexOf(genreElement.id) > -1) { %>            
+		  								<input class="form-check-input" type="checkbox" name="genre[]" value="<%= genreElement.id %>" checked>
+		  							<% } else { %>
+		  								<input class="form-check-input" type="checkbox" name="genre[]" value="<%= genreElement.id %>">
+		  								
+									  <% } %>
+									  <label class="form-check-label" for="inlineCheckbox1"> <%= genreElement.name %>	</label>
+									</div> 	      
+						  
+				   		<% }); %>						
+				</div>
+
+				<button type="submit" class="btn btn-primary">Save
+				</button>
+
+			</form>
 		</div>
-
-		
-		<div class="form-group">
-			 <label for="authors"><strong>Authors</strong></label>
-			 	
-
-  			<div class="row mt-2">
-			 		
-			 		<div class="col-md-1">
-			 				<label for="authors">1</label>
-			 		</div>
-			    
-			    <div class="col">
-			      <input type="text" class="form-control" placeholder="First name" name="author[0][firstname]">
-			    </div>
-			    
-			    <div class="col">
-			      <input type="text" class="form-control" placeholder="Last name" name="author[0][lastname]">
-			    </div>
-  			</div>
-
-  			<div class="row mt-2">
-			 		<div class="col-md-1">
-			 				<label for="authors">2</label>
-			 		</div>
-			    <div class="col">
-			      <input type="text" class="form-control" placeholder="First name" name="author[1][firstname]">
-			    </div>
-			    <div class="col">
-			      <input type="text" class="form-control" placeholder="Last name" name="author[1][lastname]">
-			    </div>
-  			</div>
-
-  			<div class="row mt-2">
-			 		<div class="col-md-1">
-			 				<label for="authors">3</label>
-			 		</div>
-			    <div class="col">
-			      <input type="text" class="form-control" placeholder="First name" name="author[2][firstname]">
-			    </div>
-			    <div class="col">
-			      <input type="text" class="form-control" placeholder="Last name" name="author[2][lastname]">
-			    </div>
-  			</div>
-
-  			<div class="row mt-2">
-			 		<div class="col-md-1">
-			 				<label for="authors">4</label>
-			 		</div>
-			    <div class="col">
-			      <input type="text" class="form-control" placeholder="First name" name="author[3][firstname]">
-			    </div>
-			    <div class="col">
-			      <input type="text" class="form-control" placeholder="Last name" name="author[3][lastname]">
-			    </div>
-  			</div>
-  			
-		</div>
-		<div class="form-group">
-			 <label for="summary">Summary</label>
-			 <textarea  name="summary" class="form-control"></textarea>
-		</div>
-		<div class="form-group">
-			 <label for="isbn">Isbn</label>
-			 <input type="text" name="isbn" class="form-control">
-		</div>
-
-		<div class="form-group">
-			 <label for="author"><strong>Genres</strong></label>
-			 
-			 		
-			 		<% genresList.forEach(function(genre) { %>
-				     
-				    	<div class="form-check">
-  								<input class="form-check-input" type="checkbox" name="genre" value="<%= genre.id %>">
-  								<label class="form-check-label" for="inlineCheckbox1"> <%= genre.name %>	</label>
-							</div> 	      
-				  
-		   		<% }); %>	
-
-			
-			
-		</div>
-
-		<button type="submit" class="btn btn-primary">Save
-		</button>
-
-	</form>
-
-	<% if (typeof error !== "undefined") { %>
-		<div class="alert alert-primary mt-2" role="alert">
-		    
-		    <p><%= error %></p>
-		</div>
-	<% } %>
-
-	</div>
-		
 	</div>
 
 </main>
