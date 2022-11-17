@@ -19,8 +19,10 @@
 						<p>Exemples ISBN: 0205080057 , 9783161484100</p>
 				</div>
 				<% if (typeof errors !== "undefined") { %>			
-					<div class="alert alert-danger mt-2" role="alert">		    <% errors.forEach(function(error) { %> 				   			<p><%= error.msg %></p>
-					    		<% }) %>
+					<div class="alert alert-danger mt-2" role="alert">		  
+						  <% errors.forEach(function(error) { %> 				   		
+							<p><%= error.msg %></p>
+					    <% }) %>
 					</div>
 				<% } %>
 		</div>

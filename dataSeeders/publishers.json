@@ -1,0 +1,21 @@
+{
+    "publishers" : [
+        { "name" : "RA-MA" },
+        { "name" : "McGraw-Hill" },
+        { "name" : "Amazon Editions" },
+        { "name" : "Nova Science Publishers" },
+        { "name" : "SAGE Publishing" },
+        { "name" : "Macmillan International Higher Education" },
+        { "name" : "CRC Press" },
+        { "name" : "Purdue University Press" },
+        { "name" : "BrownWalker Press" },
+        { "name" : "Fordham University Press" },
+        { "name" : "Oxford University Press" }       
+    ]
+}
+
+
+
+
+
+

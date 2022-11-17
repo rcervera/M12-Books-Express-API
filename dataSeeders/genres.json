@@ -1,0 +1,17 @@
+{
+    "genres" : [
+        { "name" : "Computers" },
+        { "name" : "Operating Systems" },
+        { "name" : "Databases" },
+        { "name" : "Programming languages" },
+        { "name" : "PHP" },
+        { "name" : "JAVA" },
+        { "name" : "NodeJS" },
+        { "name" : "JavaScript" },
+        { "name" : "ReactJS" },
+        { "name" : "MongoDB" },
+        { "name" : "MySql" },
+        { "name" : "Oracle" },
+        { "name" : "Laravel" }
+    ]
+}

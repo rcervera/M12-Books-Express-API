@@ -33,6 +33,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname + '/public')));
 
 
+app.get('/',function(req, res) {  
+     res.render('home')
+   });
+
 function middleware1(req, res, next) {
      console.log('middelware 1')
      next(); 

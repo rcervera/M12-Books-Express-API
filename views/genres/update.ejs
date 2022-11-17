@@ -11,36 +11,60 @@
 
 <main>
 
-	<div class="card mt-4">
-	  <div class="card-header">
-	     <h5 class="card-title">Edit Genre</h5>
-	  </div>
-	  <div class="card-body">
+	<div class="row mt-5">
+		<div class="col p-5">
+			<h5>
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+					  <li class="breadcrumb-item"><a href="/genres">Genres</a></li>
+					  <li class="breadcrumb-item active" aria-current="page">
+						<strong>Edit</strong>
+					</li>
+					</ol>
+				  </nav>
+				
+				</h5>
+			<p class="lead"> 
+				An easy way for readers to find what they’re looking for. By “labeling” books and organizing them into logical categories or genres, it’s easier for readers to find the types of books they want.
+			</p>
+
+			<% if (typeof errors !== "undefined") { %>			
+				<div class="alert alert-danger mt-2" role="alert">		    
+					<% errors.forEach(function(error) { %> 				   			
+						<p><%= error.msg %></p>
+					<% }) %>
+				</div>
+			<% } %>
+
+			<% if (typeof error !== "undefined") { %>
+				<div class="alert alert-primary mt-2" role="alert">
+					<p><%= error %></p>
+				</div>
+			<% } %>
+
+			<% if (typeof message !== "undefined") { %>
+				<div class="alert alert-primary mt-2" role="alert">
+					<p><%= message %></p>
+				</div>
+			<% } %>
+		</div>
+		<div class="col">
 	
-		<form method="POST" action="/genres/update/<%= genre._id %>">
-			<div class="form-group">
-				 <label for="name">Name</label>
-				<input type="text" name="name" class="form-control" value="<%= genre.name %>">
-			</div>
-			<button type="submit" class="btn btn-primary">Save
-			</button>
-			<a class="btn btn-danger" href="/genres/delete/<%= genre._id %>" role="button">Delete</a>
+			<form method="POST" action="/genres/update/<%= genre._id %>">
 
-		</form>
+				<div class="mb-3">
+					<label class="form-label">Name</label>
+					<input type="text" name="name" class="form-control" value="<%= genre.name %>">
+				</div>
+				<button type="submit" class="btn btn-primary">Save
+				</button>
+				<a class="btn btn-danger" href="/genres/delete/<%= genre._id %>" role="button">Delete</a>
 
-		<% if (typeof error !== "undefined") { %>
-			<div class="alert alert-primary mt-2" role="alert">
-			    <p><%= error %></p>
-			</div>
-		<% } %>
+			</form>
 
-		<% if (typeof message !== "undefined") { %>
-			<div class="alert alert-primary mt-2" role="alert">
-			    <p><%= message %></p>
-			</div>
-		<% } %>
+			
 
-	</div>
+		</div>
 		
 	</div>
 
