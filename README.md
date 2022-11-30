@@ -11,4 +11,4 @@
 
 - [Cinquena versió: Genres: validació i paginació , seeders](https://github.com/rcervera/M12-BookCatalog/tree/4b46d7047328f32d0a7bbe2e2529b6b8aa06e9c6)
 
--[Sisena versió: gestió de còpies dels llibres (instances), autejntificació i autorització amb rols] (https://github.com/rcervera/M12-BookCatalog) 
+- [Sisena versió: gestió de còpies dels llibres , autentificació i autorització amb rols] (https://github.com/rcervera/M12-BookCatalog) 
