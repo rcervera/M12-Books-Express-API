@@ -9,4 +9,6 @@
 
 - [Quarta versió: Gestió de TechnicalBooks: CRUD amb gestió errors, Sanitització, validació i reploblament forms](https://github.com/rcervera/M12-BookCatalog/tree/4cd9e5bd3ef62a71e579b64962a718d470018486)
 
-- [Cinquena versió: Genres: validació i paginació , seeders](https://github.com/rcervera/M12-BookCatalog)
+- [Cinquena versió: Genres: validació i paginació , seeders](https://github.com/rcervera/M12-BookCatalog/tree/4b46d7047328f32d0a7bbe2e2529b6b8aa06e9c6)
+
+-[Sisena versió: gestió de còpies dels llibres (instances), autejntificació i autorització amb rols] (https://github.com/rcervera/M12-BookCatalog) 
