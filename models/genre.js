@@ -6,7 +6,7 @@ var Schema = mongoose.Schema;
 var GenreSchema = new Schema({
   name: { type: String, required: true, 
           minLength: 1, 
-          maxLength: 20 },
+          maxLength: 50 },
 });
 
 GenreSchema.plugin(mongoosePaginate);

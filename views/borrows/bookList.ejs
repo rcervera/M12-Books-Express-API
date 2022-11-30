@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('../partials/header'); %>
+</header>
+
+<main>
+	<div class="container">
+   	    <h1 class="display-3">Search Book</h1>
+        <div class="mt-2">
+           <form method="GET" class="row row-cols-1 row-cols-md-4 g-4 mt-2">
+            
+            <div class="col-auto">
+              <label class="visually-hidden" for="title">Title</label>
+              <div class="input-group">
+                <div class="input-group-text">Title</div>
+                <input type="text" name="titleFilter" value="<%= filters.titleFilter %>" class="form-control" id="title" placeholder="Title">
+             </div>
+            </div>
+
+            <div class="col-auto">
+                <div class="input-group">
+                    <div class="input-group-text">Author</div>
+                    <input type="text"  name="authorFilter" value="<%= filters.authorFilter %>"  class="form-control" id="author" placeholder="Author">
+                </div>
+            </div>
+
+            <div class="col-auto">
+                <div class="input-group">
+                    <div class="input-group-text">Publisher</div>
+                    <input list="publishers" name="publisherFilter" value="<%= filters.publisherFilter %>" id="browser" value="" placeholder="publisher" class="form-control">
+						<datalist id="publishers">
+						    <% publishers.forEach(function(publisher) { %>
+								<option value="<%= publisher.name %>"></option>										  
+							<% }); %>
+						</datalist>
+                    
+                </div>
+            </div>                        
+            
+            <div class="col-auto">
+              <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+
+          </form>						 
+        </div>
+
+
+            
+        <div class="row row-cols-1 row-cols-md-3 g-4 mt-2">  	
+		    <% result.docs.forEach(function(book) { %>
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= book.title %></h5>
+                            <h6 class="card-title"><%= book.publisher.name %></h6>
+                            <div>
+                                <% book.author.forEach(function(author) { %>
+                                    <span class="badge text-bg-warning"><%= author.firstname %>, <%= author.lastname %></span>
+        
+                                 <% }); %>
+                            </div>
+                            <p class="lead mt-2"><%= book.summary %></p>                  
+                                                    
+                        </div>
+                        <% if (locals.role.includes('lender')) { %>
+                            <div class="card-footer">
+                                <% if(book.numItems>0) { %>
+                                    <a href="/lend/selectitem/<%= book.id %>" class="btn btn-dark float-end position-relative m-3">
+                                        Items
+                                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                            <%= book.numItems %>
+                                            <span class="visually-hidden">unread messages</span>
+                                        </span>
+                                    </a>
+                                <% } else { %>
+                                    <button disabled class="btn btn-dark float-end position-relative m-3">
+                                        Items
+                                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                            <%= book.numItems %>
+                                            <span class="visually-hidden">unread messages</span>
+                                        </span>
+                                    </button>
+                                <% }  %>
+                            </div>		      			
+                        <% } %>
+                    </div>
+                </div>
+		   		<% }); %>	     
+		    </tbody>
+	    </table>
+	    </div>
+
+        
+    
+	</div>
+		
+	
+      
+  
+
+    
+   
+  
+
+</main>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+{
+    "users":[
+        {
+           
+            "fullname":"Joan Gracia Moreno",         
+            "role": ["librarian","lender","member"],        
+            "email":"librarian@librarian.com",         
+            "password": "librarian"
+        },
+        {
+           
+            "fullname":"Joana Quintana Soler",         
+            "role":"lender",        
+            "email":"lender@lender.com",         
+            "password": "lender"
+        },
+        {
+         
+            "fullname":"Pere Gracia Fa",         
+            "role":"member",        
+            "email":"member@member.com",         
+            "password": "member"
+        },
+        {
+         
+            "fullname":"Sara Mas Farnús",         
+            "role":"member",        
+            "email":"member2@member.com",         
+            "password": "member2"
+        },
+        {
+         
+            "fullname":"Josep Talarn Silos",         
+            "role":"member",        
+            "email":"member3@member.com",         
+            "password": "member3"
+        },
+        {
+         
+            "fullname":"Carme Solanes Figueres",         
+            "role":"member",        
+            "email":"member4@member.com",         
+            "password": "member4"
+        },
+        {
+         
+            "fullname":"LluísDalmau Navarro",         
+            "role":"member",        
+            "email":"member5@member.com",         
+            "password": "member5"
+        }
+        
+    ]
+}
+

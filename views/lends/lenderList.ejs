@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('../partials/header'); %>
+</header>
+
+<main>
+	<div class="container">
+		
+			
+				<h1 class="display-6 mt-2">
+					<strong>Lended book Copies List</strong>
+				</h1>
+				
+			
+				<div class="table-responsive">		      	 
+					<table class="table table-striped ">			
+						<thead>
+							<tr>		
+                                <th scope="col">Member</th>     
+                                <th scope="col">Item code</th>  
+                                <th scope="col">Title</th>
+                                <th scope="col">Publisher</th>
+                                <th scope="col">Author</th>
+                                <th scope="col">Due Date<th>
+                                <th scope="col"><th>
+							</tr>
+						</thead>
+						<tbody>
+							<%  list.forEach( function(lend) { %>
+								<tr>		    
+                                    <td><%= lend.member.fullname %></td>  
+                                    <td><%= lend.bookinstance.id %></td>
+                                    <td><%= lend.bookinstance.book.title %></td>
+                                    <td><%= lend.bookinstance.book.publisher.name %></td>
+                                    <td>
+                                        <% lend.bookinstance.book.author.forEach(function(author) { %>
+                                            <span class="badge text-bg-warning"><%= author.firstname %>, <%= author.lastname %></span>
+                
+                                         <% }); %>
+                                        </td>
+                                        
+                                    <td>
+                                        <% if(lend.isDelayed ) { %>
+                                            <p class="text-danger">
+                                            <%= lend.dueDate_formatted  %>  
+                                            </p>                                         
+                                        <% }  else {%>
+                                            <p class="text-success">
+                                                <%= lend.dueDate_formatted  %>  
+                                                </p>
+                                        <% }  %>
+                                    </td>	
+
+                                    <td>					      	
+                                        <a class="btn btn-secondary" href="/lend/return/<%=lend.id%>" class="card-link">Return</a>
+                                    </td>      
+								</tr>
+							<% }); %>	     
+						</tbody>
+				</table>			
+				
+				
+			</div>
+		</div>
+	</div>
+ 
+</main>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

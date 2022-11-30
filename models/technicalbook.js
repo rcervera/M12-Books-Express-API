@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 var Schema = mongoose.Schema;
 
@@ -18,6 +19,8 @@ var TechnicalBookSchema = new Schema({
   genre: [{ type: Schema.ObjectId, ref: "Genre" }],
 });
 
+TechnicalBookSchema.index({title: 'text', 'summary': 'text'});
 
+TechnicalBookSchema.plugin(mongoosePaginate);
 // Export model.
 module.exports = mongoose.model("TechnicalBook", TechnicalBookSchema);

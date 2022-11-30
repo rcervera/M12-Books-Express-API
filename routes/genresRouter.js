@@ -1,9 +1,24 @@
 var express = require("express");
+var middelware = require("../middlewares/authenticate");
 var router = express.Router();
 
 const genre_controller = require("../controllers/genresController");
 
-
+router.use([middelware.isAuth,middelware.hasRole('librarian')]);
+/*
+router.use(function (req, res, next) {
+    //console.log(req.session.data.userId);
+    
+    if(!req.session.data) {
+        res.redirect('/user/login')
+    }
+    else {
+        // console.log(req.session.data);
+        // res.locals.username = req.session.data.username;
+      next();  
+    }   
+});
+*/
 
 router.get("/", genre_controller.list);
 

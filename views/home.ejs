@@ -2,25 +2,34 @@
 <html lang="en">
 <head>
   <%- include('./partials/head'); %>
+  <style>
+	body {
+	background: url('/images/library.jpg') no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	background-size: cover;
+	-o-background-size: cover;
+  }
+  </style>
 </head>
-<body class="container">
+<body>
 
-<header>
-  <%- include('./partials/header'); %>
-</header>
+	<header>
+	<%- include('./partials/header'); %>
+	</header>
 
-<main>
-	<div class="jumbotron mt-4">
-	  <h1 class="display-4">Book Catalog</h1>
-	  <p class="lead">Catàleg de llibres de l'institut Vidal i Barraquer.</p>
-	  <hr class="my-4">
-	  
-	</div>
-</main>
+	<main class="container">
+		<div class="jumbotron mt-4">
+		<h1 class="display-1 text-black">Book Catalog</h1>
+		<p class="display-3 text-black-50">Catàleg de llibres de l'institut Vidal i Barraquer.</p>
+		<hr class="my-4">
+		
+		</div>
+	</main>
 
-<footer>
-  <%- include('./partials/footer'); %>
-</footer>
+	<footer>
+	<%- include('./partials/footer'); %>
+	</footer>
 
 </body>
 </html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('../partials/header'); %>
+  <style>
+    .pagination > li > a
+    {
+        background-color: white;
+        color: grey;
+    }
+
+    .pagination > li > a:focus,
+    .pagination > li > a:hover,
+    .pagination > li > span:focus,
+    .pagination > li > span:hover
+    {
+        color: grey;
+        background-color: #eee;
+        border-color: #ddd;
+    }
+
+    .pagination > .active > a
+    {
+        color: white;
+        background-color:  grey;
+        border: solid 1px  grey;
+    }
+
+    .pagination > .active > a:hover
+    {
+        background-color:  grey;
+        border: solid 1px  grey;
+    }
+</style>
+</header>
+
+<main>
+	<div class="container">
+   	    <h1 class="display-3">Search Book</h1>
+        <div class="mt-2">
+           <form method="GET" class="row row-cols-1 row-cols-md-4 g-4 mt-2">
+            
+            <div class="col-auto">
+              <label class="visually-hidden" for="title">Title</label>
+              <div class="input-group">
+                <div class="input-group-text">Title</div>
+                <input type="text" name="titleFilter" value="<%= filters.titleFilter %>" class="form-control" id="title" placeholder="Title">
+             </div>
+            </div>
+
+            <div class="col-auto">
+                <div class="input-group">
+                    <div class="input-group-text">Author</div>
+                    <input type="text"  name="authorFilter" value="<%= filters.authorFilter %>"  class="form-control" id="author" placeholder="Author">
+                </div>
+            </div>
+
+            <div class="col-auto">
+                <div class="input-group">
+                    <div class="input-group-text">Publisher</div>
+                    <input list="publishers" name="publisherFilter" value="<%= filters.publisherFilter %>" id="browser" value="" placeholder="publisher" class="form-control">
+						<datalist id="publishers">
+						    <% publishers.forEach(function(publisher) { %>
+								<option value="<%= publisher.name %>"></option>										  
+							<% }); %>
+						</datalist>
+                    
+                </div>
+            </div>                        
+            
+            <div class="col-auto">
+              <button type="submit" class="btn btn-secondary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                  </svg>
+              </button>
+            </div>
+
+          </form>						 
+        </div>
+
+
+            
+        <div class="row row-cols-1 row-cols-md-3 g-4 mt-2">  	
+		    <% result.docs.forEach(function(book) { %>
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= book.title %></h5>
+                            <h6 class="card-title"><%= book.publisher.name %></h6>
+                            <div>
+                                <% book.author.forEach(function(author) { %>
+                                    <span class="badge text-bg-warning"><%= author.firstname %>, <%= author.lastname %></span>
+        
+                                 <% }); %>
+                            </div>
+                            <p class="lead mt-2"><%= book.summary %></p>                  
+                                                    
+                        </div>
+                        <% if (locals.role.includes('lender')) { %>
+                            <div class="card-footer">
+                                <% if(book.numItems>0) { %>
+                                    <a href="/lend/selectitem/<%= book.id %>" class="btn btn-dark float-end position-relative m-3">
+                                        Items
+                                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                            <%= book.numItems %>
+                                            <span class="visually-hidden">unread messages</span>
+                                        </span>
+                                    </a>
+                                <% } else { %>
+                                    <button disabled class="btn btn-dark float-end position-relative m-3">
+                                        Items
+                                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                            <%= book.numItems %>
+                                            <span class="visually-hidden">unread messages</span>
+                                        </span>
+                                    </button>
+                                <% }  %>
+                            </div>		      			
+                        <% } %>
+                    </div>
+                </div>
+		   		<% }); %>	     
+		    </tbody>
+	    </table>
+	    </div>
+
+        <nav aria-label="Genres pagination navigation" class="mt-2">
+            <ul class="pagination">
+            <% if (result.hasPrevPage==true) { %>
+                <li class="page-item">
+                <a class="page-link" href="/lend/search?page= <%= result.prevPage %>">&laquo;</a>
+            </li>
+            <% } else { %>
+                <li class="page-item disabled">
+                <a class="page-link" href="/lend/search?page=<%= result.prevPage %>" tabindex="-1" aria-disabled="true">&laquo;</a>
+            </li>
+            <% } %>
+
+
+            <% for(var i=1; i <= result.totalPages; i++) { %> 
+                <% if (i == result.page) { %>
+            <li class="page-item active" aria-current="page"><a class="page-link" href="/lend/search?page=<%= i %>"><%= i %></a></li>
+        <% } else { %>
+                        <li class="page-item"><a class="page-link" href="/lend/search?page=<%= i %>"><%= i %></a></li>
+                <% } %> 
+
+            <% } %>  
+
+            <% if (result.hasNextPage==true) { %>
+                <li class="page-item">
+                <a class="page-link" href="/lend/search?page=<%= result.nextPage %>">&raquo;</a>
+            </li>
+            <% } else { %>
+                <li class="page-item disabled">
+                <a class="page-link" href="/lend/search?page=<%= result.nextPage %>" tabindex="-1" aria-disabled="true">&raquo;</a>
+            </li>
+            <% } %>
+
+
+            </ul>
+        </nav>
+
+
+    
+	</div>
+		
+	
+      
+  
+
+    
+   
+  
+
+</main>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

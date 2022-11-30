@@ -74,7 +74,7 @@ class GenreController {
   static create_get(req, res, next) {
       // Per renderitzar el primer cop la vista amb dades
       var gender = {
-        "name" : req.body.name
+        "name" : ""
       }
       res.render('genres/new',{gender:gender});
   }

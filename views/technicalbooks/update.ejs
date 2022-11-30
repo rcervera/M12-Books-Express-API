@@ -11,10 +11,24 @@
 <main>
 	<div class="row mt-5">
     <div class="col">
-	    <h1 class="display-5">
-	    	<strong>Edit Technical Book</strong>
-	    </h1>
+	    <h5>
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+				  <li class="breadcrumb-item"><a href="/technicalbook">Technical Books</a></li>
+				  <li class="breadcrumb-item active" aria-current="page">
+					<strong>Edit</strong>
+				  </li>
+				</ol>
+			  </nav>
+			
+			</h5>
+			<p class="lead"> 
+				Technical book includes full-length manuals, textbooks, schematics, scientific reports, industry standards, and instructional publications. An author or group of authors gathers information about a particular topic or subject and arranges the information into chapters and sections.
+			</p>
 		
+			<a href="/technicalbook/instance/<%=techBook.id%>" class="btn btn-info">Manage Book Copies</a>
+	
+
 			<% if (typeof errors !== "undefined") { %>
 				<div class="alert alert-danger mt-2" role="alert">		    <% errors.forEach(function(error) { %>  
 						
