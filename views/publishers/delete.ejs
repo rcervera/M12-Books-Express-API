@@ -3,16 +3,67 @@
 <head>
   <%- include('../partials/head'); %>
 </head>
-<body class="container">
+<body>
 
 <header>
   <%- include('../partials/header'); %>
 </header>
 
 <main>
-	<div class="card mt-2" style="width: 25rem;">
-    <div class="card-body">
-	    <h5 class="card-title">Confirm Delete Publisher</h5>
+	<div class="container">
+	<div class="row mt-5">
+		
+		<div class="col p-5">
+			<h5>
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+					  <li class="breadcrumb-item"><a href="/publisher" class="link-secondary">Publishers</a></li>
+					  
+					  <li class="breadcrumb-item">
+						<a href="/publisher/update/<%=id %>" class="link-secondary">Edit</a></li>
+					  </li>
+					  <li class="breadcrumb-item active" aria-current="page">
+							<strong>Delete</strong>
+					  </li>
+					</ol>
+				  </nav>
+				
+			</h5>
+			<p class="lead"> 
+				Update a publisher data. Fill the form with the new name of the publisher company.
+			</p>
+
+			<% if (typeof errors !== "undefined") { %>			
+				<div class="alert alert-danger mt-2" role="alert">		   
+					<% errors.forEach(function(error) { %> 				   			
+						<p><%= error.msg %></p>
+					<% }) %>
+				</div>
+			<% } %>
+
+			<% if (typeof error !== "undefined") { %>
+				<div class="alert alert-primary mt-2" role="alert">
+					<p>Form could not be submitted due to the following error:</p>
+					<p><%= error %></p>
+				</div>
+			<% } %>
+		
+			<% if (typeof message !== "undefined") { %>
+				
+					
+					<div class="alert alert-warning mt-2  d-flex align-items-center" role="alert">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+							<path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+						</svg>
+						<div>
+							   <%= message %>
+						</div>
+						
+					</div>
+			<% } %>
+		</div>
+
+		<div class="col">
 		
 			
 				<form method="POST" action="/publisher/delete/<%= id %>">		
@@ -27,12 +78,7 @@
 				
 		
 
-	<% if (typeof error !== "undefined") { %>
-		<div class="alert alert-primary mt-2" role="alert">
-		    <p>Form could not be submitted due to the following error:</p>
-		    <p><%= error %></p>
-		</div>
-	<% } %>
+	</div>
 
 	</div>
 		
