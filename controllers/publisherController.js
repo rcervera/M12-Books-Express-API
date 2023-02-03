@@ -1,7 +1,6 @@
 var Publisher = require("../models/publisher");
 const { body, validationResult } = require("express-validator");
 
-
 class publisherController {
 
   static rules = [
@@ -10,7 +9,7 @@ class publisherController {
       .trim()
       .isLength({ min: 1})
       .withMessage('Name must not be empty.')   
-      .isLength({ max: 20})
+      .isLength({ max: 25})
       .withMessage('Name is too long.')       
       .escape()           
       .custom(async function(value, {req}) {  
@@ -26,104 +25,98 @@ class publisherController {
     
   ];
 
-	static list(req, res, next) {
-		Publisher.find()        
-        .exec(function (err, list) {
-          if (err) {
-            return next(err);
-          }
-          
-          res.render('publishers/list',{list:list})
-      }); 
-		
-	}
 
-  static create_get(req, res, next) {
-      var publisher = {
-        "name" : ""
-      }
-      res.render('publishers/new',{publisher:publisher});
+  // Recuperar tots els Publishers
+  static async all(req, res, next) {
+  
+    try {
+      const result = await Publisher.find();
+      res.status(200).json(result) 
+    }
+    catch(error) {
+      res.status(402).json({errors: [{msg:"There was a problem retrieving publishers."}]})
+    }   
   }
 
-  
+  // Recuperar els publishers en pàgines
+	static async list(req, res, next) {
+      
+      // Configurar la paginació
+      const options = {
+        page: req.query.page || 1,  // Número pàgina
+        limit: 5,       // Número registres per pàgina
+        sort: { _id: -1 },   // Ordenats per id: el més nou el primer        
+      };
 
-  static create_post(req, res, next) {
-    // Recuperem els errors possibles de validació
-    const errors = validationResult(req);
-    // console.log(errors.array())
-    // Tenim errors en les dades enviades
-  
-    if (!errors.isEmpty()) {
-      var publisher = {
-        "name" : req.body.name
+      try {
+        const result = await Publisher.paginate({}, options);
+        res.status(200).json(result) 
       }
-      res.render('publishers/new',{errors:errors.array(), publisher: publisher})
+      catch(error) {      
+        res.status(402).json({errors: [{msg:"There was a problem retrieving publishers."}]})       
+      }    		
+	}
+   
+
+  static async create(req, res, next) {
+   
+    const errors = validationResult(req);  
+   
+
+    if (!errors.isEmpty()) {
+        res.status(402).json({errors:errors.array()}) 
     }
     else {    
-        Publisher.create(req.body, (error, newRecord) => {
-            if(error){
-                //var err = new Error("There was a problem saving the new publisher.");
-                //err.status = 404;
-                return next(error);
-            }else{                
-                res.redirect('/publisher')
-            }
-        })
+        var publisher = {
+          "name" : req.body.name
+        }
+
+        try {
+          const newPublisher = await Publisher.create(req.body)
+          res.status(200).json(newPublisher)
+        } catch(error) {
+          res.status(402).json({errors: [{msg:"There was a problem saving the new publisher."}]})          
+        }        
     }
   }
 
-  static update_get(req, res, next) {
-    Publisher.findById(req.params.id, function (err, publisher) {
-        if (err) {
-          return next(err);
-        }
-        if (publisher == null) {
-          // No results.
-          var err = new Error("Publisher not found");
-          err.status = 404;
-          return next(err);
-        }
-        // Success.
-        res.render("publishers/update", { publisher: publisher });
-    });
-      
-  }
+  
+  static async update(req, res, next) {
+    const errors = validationResult(req);  
 
-  static update_post(req, res, next) {
-      var publisher = new Publisher({
-        name: req.body.name,
+    if (!errors.isEmpty()) {      
+      res.status(402).json({errors:errors.array()})      
+    }
+    else {    
+      
+      var publisher = {
+        name : req.body.name,
         _id: req.params.id,
-      });    
-    
-      Publisher.findByIdAndUpdate(
-        req.params.id,
-        publisher,
-        {},
-        function (err, thepublisher) {
-          if (err) {
-            res.render("publishers/update", { publisher: publisher, error: err.message });
-
-          }
-          res.render("publishers/update", { publisher: publisher, message: 'Publisher Updated'});
-        
-        }
-      );
-  }
-
-  static async delete_get(req, res, next) {
-      
-      res.render('publishers/delete',{id: req.params.id})
-  }
-
-  static async delete_post(req, res, next) {
-    
-    Publisher.findByIdAndRemove(req.params.id, (error)=> {
-      if(error){
-        res.redirect('/publisher')
-      }else{
-        res.redirect('/publisher')
       }
-    }) 
+
+      try {
+            const updatedpublisher = await Publisher.findByIdAndUpdate(
+                   req.params.id, publisher, {runValidators: true})
+            return res.status(200).json(updatedpublisher)
+      }
+      catch(error) {
+        res.status(402).json({errors: [{msg:"There was a problem updating the publisher."}]})          
+      }
+         
+    }
+      
+  }
+  
+  static async delete(req, res, next) {
+
+    try {       
+      const publisher = await  Publisher.findByIdAndRemove(req.params.id)
+      res.status(200).json(publisher)
+    }
+    catch {
+      res.status(402).json({errors: [{msg:"There was a problem deleting the publisher."}]})
+    }   
+    
   }
 
 }

@@ -36,19 +36,6 @@ mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true})
   )
   .catch("when the error happened")
 
-/*
-db.on('connected', function () {
-  console.log('Mongoose connection open'); 
-  
-  seeder().then( function() {
-    mongoose.connection.close();
-  });
-
-});
-
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
-*/
 
 async function seeder() {
   // Esborrar contingut col·leccions

@@ -3,14 +3,11 @@ var router = express.Router();
 
 const publisher_controller = require("../controllers/publisherController");
 
-
 router.get("/", publisher_controller.list);
-router.get("/new", publisher_controller.create_get);
-router.post("/save", publisher_controller.rules, publisher_controller.create_post);
-router.get("/delete/:id", publisher_controller.delete_get);
-router.post("/delete/:id", publisher_controller.delete_post);
-router.get("/update/:id", publisher_controller.update_get);
-router.post("/update/:id", publisher_controller.rules,publisher_controller.update_post);
+router.get("/all", publisher_controller.all);
+router.post("/", publisher_controller.rules, publisher_controller.create);
+router.delete("/:id", publisher_controller.delete);
+router.put("/:id", publisher_controller.rules,publisher_controller.update);
 
 
 module.exports = router;
